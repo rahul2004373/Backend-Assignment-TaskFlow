@@ -1,0 +1,13 @@
+export const errorHandler = ((err, req, res, next) => {
+    let statusCode = err.status || 500;
+    let message = err.message || "Internal Server Error";
+    if (err.name === "ValidationError") {
+        statusCode = 400;
+        message = "Invalid data provided";
+    }
+    res.status(statusCode).json({
+        success: false,
+        error: message,
+    });
+});
+//# sourceMappingURL=error.js.map

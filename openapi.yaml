@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: TaskFlow API
+  version: 1.0.0
+  description: API documentation for the TaskFlow application
+servers:
+  - url: http://localhost:3000/v1/api
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Created
+  /auth/login:
+    post:
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Success
+  /projects:
+    get:
+      summary: Get all projects
+      security:
+        - bearerAuth: []
+        - orgId: []
+      responses:
+        '200':
+          description: Success
+  /tasks:
+    get:
+      summary: Get all tasks
+      security:
+        - bearerAuth: []
+        - orgId: []
+      responses:
+        '200':
+          description: Success
+  /jobs/{id}:
+    get:
+      summary: Get job status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Success
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    orgId:
+      type: apiKey
+      in: header
+      name: X-Org-Id
