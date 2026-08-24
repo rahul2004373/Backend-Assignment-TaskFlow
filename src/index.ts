@@ -39,7 +39,8 @@ app.use('/v1/api/tasks', taskRoutes);
 app.use('/v1/api/jobs', jobRoutes);
 
 const swaggerDocument = YAML.load(path.join(process.cwd(), 'openapi.yaml'));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve);
+app.use('/api-docs', swaggerUi.setup(swaggerDocument));
 
 app.use(errorHandler)
 
